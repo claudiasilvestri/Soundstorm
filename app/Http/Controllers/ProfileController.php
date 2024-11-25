@@ -3,11 +3,19 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\User; // Assicurati che questo import esista se necessario.
-use Illuminate\Validation\Rule; // Importa la classe Rule per le regole di validazione.
+use App\Models\User;
+use Illuminate\Validation\Rule;
+use Illuminate\Routing\Controllers\HasMiddleware;
 
-class ProfileController extends Controller
+class ProfileController extends Controller implements HasMiddleware
 {
+    public static function middleware(): array
+    {
+        return [
+            'auth',
+        ];
+    }
+
     public function page()
     {
         $user = auth()->user();
@@ -21,7 +29,7 @@ class ProfileController extends Controller
         ]);
 
         $user->profile->update([
-            'avatar' => $request->file('avatar')->store('img','public'),
+            'avatar' => $request->file('avatar')->store('img', 'public'),
         ]);
 
         return redirect()->back()->with('success', 'Avatar aggiornato correttamente.');
@@ -56,5 +64,10 @@ class ProfileController extends Controller
         ]);
 
         return redirect(route('profile.page'))->with('success', 'Profilo aggiornato correttamente.');
+    }
+
+    public function edit(User $user)
+    {
+        return view('profile.edit', compact('user'));
     }
 }

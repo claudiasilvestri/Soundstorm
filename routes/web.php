@@ -1,19 +1,21 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\ProfileController; // Importazione esplicita del controller
+use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\TrackController;
 
 Route::get('/', function () {
     return view('welcome');
-})->name('home'); // Nome aggiunto per coerenza
+})->name('homepage');
 
-// Rotte relative al profilo utente
 Route::prefix('profilo')->group(function () {
     Route::get('/', [ProfileController::class, 'page'])->name('profile.page');
     Route::put('/{user}/aggiorna-avatar', [ProfileController::class, 'setAvatar'])->name('profile.setAvatar');
+    Route::get('/{user}/aggiorna-dati', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::put('/{user}/aggiorna-dati', [ProfileController::class, 'update'])->name('profile.update');
 });
 
-Route::put('/profilo/{user}/aggiorna-avatar', [ProfileController::class, 'setAvatar'])->name('profile.setAvatar');
-Route::get('/profilo/{user}/aggiorna-dati', [ProfileController::class, 'edit'])->name('profile.edit');
-Route::put('/profilo/{user}/aggiorna-dati', [ProfileController::class, 'update'])->name('profile.update');
+Route::get('/musica/crea', [TrackController::class, 'create'])->name('track.create');
+Route::post('/musica/crea', [TrackController::class, 'store'])->name('track.store');
+
 

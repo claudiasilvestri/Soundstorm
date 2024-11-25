@@ -33,7 +33,6 @@
                     @enderror
                 </form>
             </div>
-
             <div class="col-12 col-md-4 p-3">
                 <div class="row">
                     <div class="col-12 col-sm-3 fw-bold">
@@ -107,6 +106,7 @@
                         <p>{{ $user->profile->mobile_number ?? '' }}</p>
                     </div>
                 </div>
+                <a class="btn btn-danger" href="{{route ('profile.edit',compact ('user'))}}"> Aggiorna</a>
             </div>
         </div>
     </div>
@@ -120,3 +120,30 @@
         </div>
     </div>
 @endif
+<div class="container my-5 pt-5 border-top">
+    <div class="row">
+        <h2>I miei brani</h2>
+    </div>
+    <div class="row justify-content-center">
+        @foreach($user->tracks as $track)
+        <div class="col-12 col-md-3">
+            <div class="card">
+                <div class="text-center">
+                    <img width="300" class="p-3 rounded-pill" src="{{ Storage::url($track->cover) }}" alt="{{ $track->title }}">
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title">{{ $track->title }}</h5>
+                    <p class="card-text">{{ $track->description }}</p>
+                    <div class="">
+                        <audio class="w-100" controls>
+                            <source src="{{ Storage::url($track->path) }}" type="audio/mpeg">
+                            Your browser does not support the audio tag.
+                        </audio>
+                    </div>
+                </div>
+            </div>
+        </div>
+        @endforeach
+    </div>
+</div>
+

@@ -1,9 +1,11 @@
 <?php
 
 namespace App\Models;
+
 use App\Models\Profile;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
@@ -47,8 +49,18 @@ class User extends Authenticatable
      *
      * @return HasOne
      */
-    public function profile()
+    public function profile(): HasOne
     {
         return $this->hasOne(Profile::class);
+    }
+
+    /**
+     * Define a one-to-many relationship with Track model.
+     *
+     * @return HasMany
+     */
+    public function tracks(): HasMany
+    {
+        return $this->hasMany(Track::class);
     }
 }

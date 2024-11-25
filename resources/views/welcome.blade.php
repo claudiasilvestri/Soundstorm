@@ -1,4 +1,4 @@
-<x-layout>+
+<x-layout>
 <div class="dropdown position-fixed bottom-0 end-0 mb-3 me-3 bd-mode-toggle">
       <button class="btn btn-bd-primary py-2 dropdown-toggle d-flex align-items-center"
               id="bd-theme"
@@ -33,4 +33,14 @@
         </li>
       </ul>
     </div>
+@if(session('success'))
+<div class="container mt-3">
+<div class="row justify-content-center text-center">
+  <div class="col-6 alert alert-success">
+    {{ session ('success)')}}
+  </div>
+</div>
+</div>
+@endif
+
 </x-layout>
