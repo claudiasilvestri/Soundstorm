@@ -107,9 +107,14 @@
                     </div>
                 </div>
                 <a class="btn btn-danger" href="{{route ('profile.edit',compact ('user'))}}"> Aggiorna</a>
-            </div>
+            </div>            
         </div>
     </div>
+
+    <div class="container">
+        <a class="btn btn-outline-primary" href="{{route('track.create')}}">Crea Track</a>
+    </div>
+
 </x-layout>
 @if(session('success'))
     <div class="container mt-3">
