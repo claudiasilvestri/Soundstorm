@@ -2,22 +2,31 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use App\Models\Track;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Routing\Controllers\HasMiddleware;
 
-class TrackController extends Controller
+class TrackController extends Controller implements HasMiddleware
 {
     public static function middleware(): array
     {
         return [
-            new Middleware('auth', except: ['index','show']),
+            'auth',
         ];
     }
 
+
+    // public function __construct()
+    // {
+    //     $this->middleware('auth')->except(['index', 'show', 'searchByUser']);
+    // }
+
     public function index()
     {
-        $tracks = Track::all();
-        return view('tracks.index', compact('tracks'));
+        $tracks = Track::orderBy('created_at', 'DESC')->get();
+        return view('track.index', compact('tracks'));
     }
 
     public function create()
@@ -68,10 +77,16 @@ class TrackController extends Controller
         ]);
 
         if ($request->hasFile('cover')) {
+            if ($track->cover) {
+                Storage::disk('public')->delete($track->cover);
+            }
             $track->cover = $request->file('cover')->store('covers', 'public');
         }
 
         if ($request->hasFile('path')) {
+            if ($track->path) {
+                Storage::disk('public')->delete($track->path);
+            }
             $track->path = $request->file('path')->store('tracks', 'public');
         }
 
@@ -82,8 +97,31 @@ class TrackController extends Controller
 
     public function destroy(Track $track)
     {
+        if ($track->cover) {
+            Storage::disk('public')->delete($track->cover);
+        }
+
+        if ($track->path) {
+            Storage::disk('public')->delete($track->path);
+        }
+
         $track->delete();
 
         return redirect(route('tracks.index'))->with('success', 'Brano eliminato con successo');
+    }
+
+    public function searchByUser($user)
+    {
+        $tracks = Track::where('user_id', $user)->get();
+        return view('tracks.user', compact('tracks'));
+    }
+
+    public function filterByUser(User $user)
+    {
+        $tracks = Track::where('user_id', $user->id)
+            ->orderBy('created_at', 'DESC')
+            ->get();
+
+        return view('tracks.searchByUser', compact('tracks', 'user'));
     }
 }

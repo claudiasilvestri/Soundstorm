@@ -3,10 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\TrackController;
-
-Route::get('/', function () {
-    return view('welcome');
-})->name('homepage');
+use App\Http\Controllers\PublicController;
 
 Route::prefix('profilo')->group(function () {
     Route::get('/', [ProfileController::class, 'page'])->name('profile.page');
@@ -17,5 +14,6 @@ Route::prefix('profilo')->group(function () {
 
 Route::get('/musica/crea', [TrackController::class, 'create'])->name('track.create');
 Route::post('/musica/crea', [TrackController::class, 'store'])->name('track.store');
-
-
+Route::get('/musica/tutti-i-brani', [TrackController::class, 'index'])->name('track.index');
+Route::get('/musica/tutti-i-brani/{user}/autore', [TrackController::class, 'filterByUser'])->name('track.filterByUser');
+Route::get('/', [PublicController::class, 'welcome'])->name('welcome');

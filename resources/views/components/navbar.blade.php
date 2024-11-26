@@ -1,27 +1,17 @@
 <nav class="navbar navbar-expand-lg bg-body-tertiary">
   <div class="container-fluid">
-    <!-- Brand -->
-    <a class="navbar-brand" href="#">Soundstore</a>
-
-    <!-- Toggler for mobile view -->
+    <a class="navbar-brand" href="#">Soundstorm</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
-
-    <!-- Navbar content -->
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-        <!-- Home Link -->
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="{{ route('homepage') }}">Home</a>
+          <a class="nav-link active" aria-current="page" href="{{ route('welcome') }}">Home</a>
         </li>
-
-        <!-- Additional Link -->
         <li class="nav-item">
           <a class="nav-link" href="#">Link</a>
         </li>
-
-        <!-- Authentication Handling -->
         @auth
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -49,8 +39,6 @@
           </ul>
         </li>
         @endauth
-
-        <!-- Dropdown Menu Example -->
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
             Menu
@@ -62,14 +50,13 @@
             <li><a class="dropdown-item" href="#">Something else here</a></li>
           </ul>
         </li>
-
-        <!-- Disabled Link -->
         <li class="nav-item">
           <a class="nav-link disabled" aria-disabled="true">Disabled</a>
         </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{{ route('track.index') }}">Tutti i brani</a>
+        </li>
       </ul>
-
-      <!-- Search Form -->
       <form class="d-flex" role="search">
         <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
         <button class="btn btn-outline-success" type="submit">Search</button>

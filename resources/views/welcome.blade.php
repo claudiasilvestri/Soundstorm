@@ -42,5 +42,35 @@
 </div>
 </div>
 @endif
-
+<div class="container my-5 pt-5 border-top">
+    <div class="row mb-5">
+        <h2>Gli ultimi brani inseriti</h2>
+    </div>
+    <div class="row justify-content-center">
+        @foreach($tracks as $track)
+        <div class="col-12 col-md-3">
+            <div class="card">
+                <div class="text-center">
+                    <img width="300" class="p-3 rounded-pill" src="{{ Storage::url($track->cover ?? 'covers/default.jpg') }}" alt="{{ $track->title }}">
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title">{{ $track->title }}</h5>
+                    <p class="card-text small">{{ $track->description ?? 'Nessuna descrizione disponibile' }}</p>
+                    <div>
+                        <audio class="w-100" controls>
+                            <source src="{{ Storage::url($track->path) }}" type="audio/mpeg">
+                            Your browser does not support the audio tag.
+                        </audio>
+                    </div>
+                </div>
+                <div class="card-footer text-body-secondary small">
+                    Inserito da: <a href="{{route('track.filterByUser',['user'=>$track->user])}}"> {{$track->user->name }}</a> 
+                    <br>
+                    {{ $track->created_at->format('d/m/Y') }}
+                </div>
+            </div>
+        </div>
+        @endforeach
+    </div>
+</div>
 </x-layout>
