@@ -48,7 +48,7 @@
                         </div>
       
                         <button type="submit" class="btn btn-primary">Accedi</button>
-                        <a href="{{ route('homepage') }}" class="btn btn-outline-primary">Torna alla home</a>
+                        <a href="{{ route('welcome') }}" class="btn btn-outline-primary">Torna alla home</a>
                     </form>
                 </div>
             </div>
