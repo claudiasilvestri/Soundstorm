@@ -7,9 +7,9 @@ use Illuminate\Http\Request;
 
 class PublicController extends Controller 
 {
-public function welcome (){
+public function homepage(){
     $tracks = Track::OrderBy('created_at', 'DESC')
-    ->take(6)
+    ->take(8)
     ->get();
 
     return view('welcome', compact('tracks'));

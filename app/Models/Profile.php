@@ -17,6 +17,7 @@ protected $fillable = [
       'country',
       'zip_code',
       'mobile_number',
+      'is_admin'
 ];
       public function user()
       {

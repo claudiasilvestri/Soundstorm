@@ -20,3 +20,17 @@ return new class extends Migration
         Schema::dropIfExists('genres');
     }
 };
+class DatabaseSeeder extends Seeder
+{
+    public function run(): void
+    {
+        User::factory()->create([
+            'name' => 'Test User',
+            'email' => 'test@example.com',
+        ]);
+
+        $this->call([
+            GenreSeeder::class,
+        ]);
+    }
+}

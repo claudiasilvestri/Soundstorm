@@ -54,7 +54,7 @@ class TrackController extends Controller implements HasMiddleware
             'user_id' => auth()->id(),
         ]);
 
-        return redirect(route('homepage'))->with('success', 'Hai aggiunto correttamente il tuo brano');
+        return redirect(route('welcome'))->with('success', 'Hai aggiunto correttamente il tuo brano');
     }
 
     public function show(Track $track)

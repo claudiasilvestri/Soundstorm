@@ -19,6 +19,9 @@
           </a>
           <ul class="dropdown-menu">
             <li><a class="dropdown-item" href="{{ route('profile.page') }}">Profilo</a></li>
+            <li><a class="dropdown-item" href="{{route('admin.dashboard')}}">Dashboard</a></li>
+
+        
             <li><hr class="dropdown-divider"></li>
             <li>
               <a class="dropdown-item" href="#" onclick="event.preventDefault(); document.querySelector('#logout-form').submit();">Esci</a>
