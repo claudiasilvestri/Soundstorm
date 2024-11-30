@@ -36,15 +36,15 @@ class AdminController extends Controller
         return view('admin.users', compact('users'));
     }
 
-    public function tracks()
+    public function track()
     {
         if (!auth()->user()->isAdmin()) {
             abort(403, 'Non autorizzato');
         }
 
-        $tracks = Track::all();
+        $track = Track::all();
 
-        return view('admin.tracks', compact('tracks'));
+        return view('admin.track', compact('track'));
     }
 
     public function genres()

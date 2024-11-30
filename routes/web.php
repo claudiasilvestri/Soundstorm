@@ -20,9 +20,10 @@ Route::get('/musica/tutti-i-brani/{user}/autore', [TrackController::class, 'filt
 Route::get('/', [PublicController::class, 'homepage'])->name('welcome');
 Route::get('/admin/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
 Route::get('/admin/dashboard/users', [AdminController::class, 'users'])->name('admin.dashboard.users');
-Route::get('/admin/dashboard/tracks', [AdminController::class, 'tracks'])->name('admin.dashboard.tracks');
+Route::get('/admin/dashboard/tracks', [AdminController::class, 'track'])->name('admin.dashboard.tracks');
 Route::get('/admin/dashboard/genres', [AdminController::class, 'genres'])->name('admin.dashboard.genres');
 Route::post('/admin/dashboard/genres', [AdminController::class, 'store'])->name('admin.dashboard.genres.store');
 Route::put('/admin/dashboard/genres/{genre}', [AdminController::class, 'update'])->name('admin.genres.update');
 Route::delete('/admin/dashboard/genres/{genre}', [AdminController::class, 'destroy'])->name('admin.dashboard.genres.destroy');
+Route::get('/musica/tutti-i-brani/{genre}/genere', [TrackController::class, 'filterByGenre'])->name('track.filterByGenre');
 

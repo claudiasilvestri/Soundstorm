@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\Genre;
 use App\Models\Track;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Routing\Controllers\HasMiddleware;
 
@@ -17,12 +19,6 @@ class TrackController extends Controller implements HasMiddleware
         ];
     }
 
-
-    // public function __construct()
-    // {
-    //     $this->middleware('auth')->except(['index', 'show', 'searchByUser']);
-    // }
-
     public function index()
     {
         $tracks = Track::orderBy('created_at', 'DESC')->get();
@@ -31,7 +27,8 @@ class TrackController extends Controller implements HasMiddleware
 
     public function create()
     {
-        return view('tracks.create');
+        $genres = Genre::all();
+        return view('track.create', compact('genres'));
     }
 
     public function store(Request $request)
@@ -41,20 +38,21 @@ class TrackController extends Controller implements HasMiddleware
             'cover' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
             'description' => 'required|string',
             'path' => 'required|file|mimes:mp3,wav,aac|max:10240',
+            'genres' => 'required|array',
+            'genres.*' => 'exists:genres,id',
         ]);
 
-        $coverPath = $request->file('cover')->store('covers', 'public');
-        $trackPath = $request->file('path')->store('tracks', 'public');
-
-        Track::create([
-            'title' => $request->title,
-            'cover' => $coverPath,
-            'description' => $request->description,
-            'path' => $trackPath,
-            'user_id' => auth()->id(),
+        $track = Track::create([
+            'title' => $request->input('title'),
+            'cover' => $request->file('cover')->store('covers', 'public'),
+            'description' => $request->input('description'),
+            'path' => $request->file('path')->store('tracks', 'public'),
+            'user_id' => Auth::id(),
         ]);
 
-        return redirect(route('welcome'))->with('success', 'Hai aggiunto correttamente il tuo brano');
+        $track->genres()->attach($request->input('genres'));
+
+        return redirect()->route('homepage')->with('success', 'Hai aggiunto correttamente il tuo brano.');
     }
 
     public function show(Track $track)
@@ -64,7 +62,8 @@ class TrackController extends Controller implements HasMiddleware
 
     public function edit(Track $track)
     {
-        return view('tracks.edit', compact('track'));
+        $genres = Genre::all();
+        return view('tracks.edit', compact('track', 'genres'));
     }
 
     public function update(Request $request, Track $track)
@@ -74,6 +73,8 @@ class TrackController extends Controller implements HasMiddleware
             'cover' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
             'description' => 'sometimes|string',
             'path' => 'nullable|file|mimes:mp3,wav,aac|max:10240',
+            'genres' => 'nullable|array',
+            'genres.*' => 'exists:genres,id',
         ]);
 
         if ($request->hasFile('cover')) {
@@ -92,6 +93,10 @@ class TrackController extends Controller implements HasMiddleware
 
         $track->update($request->only('title', 'description'));
 
+        if ($request->has('genres')) {
+            $track->genres()->sync($request->input('genres'));
+        }
+
         return redirect()->route('tracks.show', $track)->with('success', 'Brano aggiornato con successo!');
     }
 
@@ -107,12 +112,12 @@ class TrackController extends Controller implements HasMiddleware
 
         $track->delete();
 
-        return redirect(route('tracks.index'))->with('success', 'Brano eliminato con successo');
+        return redirect()->route('tracks.index')->with('success', 'Brano eliminato con successo');
     }
 
-    public function searchByUser($user)
+    public function searchByUser($userId)
     {
-        $tracks = Track::where('user_id', $user)->get();
+        $tracks = Track::where('user_id', $userId)->orderBy('created_at', 'DESC')->get();
         return view('tracks.user', compact('tracks'));
     }
 
@@ -122,6 +127,13 @@ class TrackController extends Controller implements HasMiddleware
             ->orderBy('created_at', 'DESC')
             ->get();
 
-        return view('tracks.searchByUser', compact('tracks', 'user'));
+        return view('track.searchByUser', compact('tracks', 'user'));
     }
+    
+    public function filterByGenre(Genre $genre)
+{
+    $tracks = $genre->tracks->sortByDesc('created_at');
+
+    return view('track.filterByGenre', compact('tracks', 'genre'));
+}
 }

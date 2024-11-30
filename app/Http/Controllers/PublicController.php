@@ -8,11 +8,11 @@ use Illuminate\Http\Request;
 class PublicController extends Controller 
 {
 public function homepage(){
-    $tracks = Track::OrderBy('created_at', 'DESC')
-    ->take(8)
+    $track = Track::OrderBy('created_at', 'DESC')
+    ->take(4)
     ->get();
 
-    return view('welcome', compact('tracks'));
+    return view('welcome', compact('track'));
 
 }
 }

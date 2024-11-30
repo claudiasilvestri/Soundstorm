@@ -25,7 +25,7 @@
               </tr>
             </thead>
             <tbody>
-              @foreach($tracks as $track)
+              @foreach($track as $track)
                 <tr>
                   <th scope="row">{{ $track->id }}</th>
                   <td>
