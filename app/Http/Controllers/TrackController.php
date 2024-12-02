@@ -8,15 +8,19 @@ use App\Models\Track;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
-use Illuminate\Routing\Controllers\HasMiddleware;
+use App\Http\Controllers\Controller;
+use App\Http\Middleware\CheckTrackOwner;
 
-class TrackController extends Controller implements HasMiddleware
+class TrackController extends Controller
 {
-    public static function middleware(): array
-    {
-        return [
-            'auth',
-        ];
+    public static function middleware()
+{
+    return [
+        new Middleware(middleware: 'CheckTrackOwner', only: ['create'])
+    ];
+    
+        $this->middleware('auth');
+        $this->middleware('track.owner')->only(['edit', 'update', 'destroy']);
     }
 
     public function index()
@@ -42,11 +46,14 @@ class TrackController extends Controller implements HasMiddleware
             'genres.*' => 'exists:genres,id',
         ]);
 
+        $coverPath = $request->file('cover')->store('covers', 'public');
+        $trackPath = $request->file('path')->store('tracks', 'public');
+
         $track = Track::create([
             'title' => $request->input('title'),
-            'cover' => $request->file('cover')->store('covers', 'public'),
+            'cover' => $coverPath,
             'description' => $request->input('description'),
-            'path' => $request->file('path')->store('tracks', 'public'),
+            'path' => $trackPath,
             'user_id' => Auth::id(),
         ]);
 
@@ -57,47 +64,48 @@ class TrackController extends Controller implements HasMiddleware
 
     public function show(Track $track)
     {
-        return view('tracks.show', compact('track'));
+        return view('track.show', compact('track'));
     }
 
     public function edit(Track $track)
     {
         $genres = Genre::all();
-        return view('tracks.edit', compact('track', 'genres'));
+        return view('track.edit', compact('track', 'genres'));
     }
 
     public function update(Request $request, Track $track)
     {
         $request->validate([
-            'title' => 'sometimes|string|max:255',
-            'cover' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
-            'description' => 'sometimes|string',
-            'path' => 'nullable|file|mimes:mp3,wav,aac|max:10240',
-            'genres' => 'nullable|array',
+            'title' => 'required|string|max:255',
+            'description' => 'required|string',
+            'genres' => 'required|array',
             'genres.*' => 'exists:genres,id',
+            'cover' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'path' => 'nullable|file|mimes:mp3,wav,aac|max:10240',
+        ]);
+
+        $track->update([
+            'title' => $request->title,
+            'description' => $request->description,
         ]);
 
         if ($request->hasFile('cover')) {
             if ($track->cover) {
                 Storage::disk('public')->delete($track->cover);
             }
-            $track->cover = $request->file('cover')->store('covers', 'public');
+            $track->update(['cover' => $request->file('cover')->store('covers', 'public')]);
         }
 
         if ($request->hasFile('path')) {
             if ($track->path) {
                 Storage::disk('public')->delete($track->path);
             }
-            $track->path = $request->file('path')->store('tracks', 'public');
+            $track->update(['path' => $request->file('path')->store('tracks', 'public')]);
         }
 
-        $track->update($request->only('title', 'description'));
+        $track->genres()->sync($request->genres);
 
-        if ($request->has('genres')) {
-            $track->genres()->sync($request->input('genres'));
-        }
-
-        return redirect()->route('tracks.show', $track)->with('success', 'Brano aggiornato con successo!');
+        return redirect(route('profile.page'))->with('success', 'Hai modificato correttamente il tuo brano.');
     }
 
     public function destroy(Track $track)
@@ -105,35 +113,31 @@ class TrackController extends Controller implements HasMiddleware
         if ($track->cover) {
             Storage::disk('public')->delete($track->cover);
         }
-
         if ($track->path) {
             Storage::disk('public')->delete($track->path);
         }
 
+        $track->genres()->detach();
         $track->delete();
 
-        return redirect()->route('tracks.index')->with('success', 'Brano eliminato con successo');
+        return redirect()->route('track.index')->with('success', 'Brano eliminato con successo.');
     }
 
     public function searchByUser($userId)
     {
         $tracks = Track::where('user_id', $userId)->orderBy('created_at', 'DESC')->get();
-        return view('tracks.user', compact('tracks'));
+        return view('track.user', compact('tracks'));
     }
 
     public function filterByUser(User $user)
     {
-        $tracks = Track::where('user_id', $user->id)
-            ->orderBy('created_at', 'DESC')
-            ->get();
-
+        $tracks = Track::where('user_id', $user->id)->orderBy('created_at', 'DESC')->get();
         return view('track.searchByUser', compact('tracks', 'user'));
     }
-    
-    public function filterByGenre(Genre $genre)
-{
-    $tracks = $genre->tracks->sortByDesc('created_at');
 
-    return view('track.filterByGenre', compact('tracks', 'genre'));
-}
+    public function filterByGenre(Genre $genre)
+    {
+        $tracks = $genre->tracks->sortByDesc('created_at');
+        return view('track.filterByGenre', compact('tracks', 'genre'));
+    }
 }

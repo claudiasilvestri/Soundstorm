@@ -2,9 +2,7 @@
     <div class="container-fluid p-5 bg-secondary-subtle text-center">
         <div class="row justify-content-center">
             <div class="col-12">
-                <h1 class="display-1 text-uppercase">
-                    Profilo
-                </h1>
+                <h1 class="display-1 text-uppercase">Profilo</h1>
             </div>
         </div>
     </div>
@@ -19,7 +17,6 @@
                 <form class="mt-5" action="{{ route('profile.setAvatar', compact('user')) }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     @method('PUT')
-
                     <div class="d-flex justify-content-between align-items-center">
                         <div class="col-9">
                             <input type="file" class="form-control" name="avatar" id="avatar">
@@ -34,7 +31,7 @@
                 </form>
             </div>
             <div class="col-12 col-md-4 p-3">
-                <div class="row">
+                <div class="row mb-2">
                     <div class="col-12 col-sm-3 fw-bold">
                         <p>Nome</p>
                     </div>
@@ -42,7 +39,7 @@
                         <p>{{ $user->name ?? '' }}</p>
                     </div>
                 </div>
-                <div class="row">
+                <div class="row mb-2">
                     <div class="col-12 col-sm-3 fw-bold">
                         <p>Email</p>
                     </div>
@@ -50,7 +47,7 @@
                         <p>{{ $user->email ?? '' }}</p>
                     </div>
                 </div>
-                <div class="row">
+                <div class="row mb-2">
                     <div class="col-12 col-sm-3 fw-bold">
                         <p>Residenza</p>
                     </div>
@@ -58,7 +55,7 @@
                         <p>{{ $user->profile->address ?? '' }}</p>
                     </div>
                 </div>
-                <div class="row">
+                <div class="row mb-2">
                     <div class="col-12 col-sm-3 fw-bold">
                         <p>Città</p>
                     </div>
@@ -66,7 +63,7 @@
                         <p>{{ $user->profile->city ?? '' }}</p>
                     </div>
                 </div>
-                <div class="row">
+                <div class="row mb-2">
                     <div class="col-12 col-sm-3 fw-bold">
                         <p>Provincia</p>
                     </div>
@@ -74,7 +71,7 @@
                         <p>{{ $user->profile->province ?? '' }}</p>
                     </div>
                 </div>
-                <div class="row">
+                <div class="row mb-2">
                     <div class="col-12 col-sm-3 fw-bold">
                         <p>Regione</p>
                     </div>
@@ -82,7 +79,7 @@
                         <p>{{ $user->profile->region ?? '' }}</p>
                     </div>
                 </div>
-                <div class="row">
+                <div class="row mb-2">
                     <div class="col-12 col-sm-3 fw-bold">
                         <p>Paese</p>
                     </div>
@@ -90,7 +87,7 @@
                         <p>{{ $user->profile->country ?? '' }}</p>
                     </div>
                 </div>
-                <div class="row">
+                <div class="row mb-2">
                     <div class="col-12 col-sm-3 fw-bold">
                         <p>CAP</p>
                     </div>
@@ -98,7 +95,7 @@
                         <p>{{ $user->profile->zip_code ?? '' }}</p>
                     </div>
                 </div>
-                <div class="row">
+                <div class="row mb-2">
                     <div class="col-12 col-sm-3 fw-bold">
                         <p>Numero di cellulare</p>
                     </div>
@@ -106,13 +103,13 @@
                         <p>{{ $user->profile->mobile_number ?? '' }}</p>
                     </div>
                 </div>
-                <a class="btn btn-danger" href="{{route ('profile.edit',compact ('user'))}}"> Aggiorna</a>
+                <a class="btn btn-danger" href="{{ route('profile.edit', compact('user')) }}">Aggiorna</a>
             </div>            
         </div>
     </div>
 
     <div class="container">
-        <a class="btn btn-outline-primary" href="{{route('track.create')}}">Crea Track</a>
+        <a class="btn btn-outline-primary" href="{{ route('track.create') }}">Crea Track</a>
     </div>
 
     @if(session('success'))
@@ -131,38 +128,42 @@
         </div>
         <div class="row justify-content-center">
             @foreach($user->tracks as $track)
-            <div class="col-12 col-md-3">
-                <div class="card mb-3">
-                    <div class="text-center">
-                        <img width="300" class="p-3 rounded-pill" src="{{ Storage::url($track->cover) }}" alt="{{ $track->title }}">
-                    </div>
-                    <div class="card-body">
-                        <h5 class="card-title">{{ $track->title }}</h5>
-                        <p class="card-text small">{{ $track->description }}</p>
-                        <div class="mb-3">
-                            <p class="fw-bold m-0">Generi:</p>
+                <div class="col-12 col-md-3">
+                    <div class="card">
+                        <div class="text-center">
+                            <img width="300" class="p-3 rounded-pill" src="{{ Storage::url($track->cover) }}" alt="{{ $track->title }}">
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title">{{ $track->title }}</h5>
+                            <p class="card-text small">{{ $track->description }}</p>
+                            <div>
+                                <audio class="w-100" controls>
+                                    <source src="{{ Storage::url($track->path) }}" type="audio/mpeg">
+                                    Your browser does not support the audio tag.
+                                </audio>
+                            </div>
+                        </div>
+                        <div class="card-footer text-body-secondary small">
                             @if($track->genres->count())
                                 @foreach($track->genres as $genre)
-                                    <span class="me-1 small fst-italic">{{ $genre->name }}</span>
+                                    <span class="me-1 small fst-italic">#{{ $genre->name }}</span>
                                 @endforeach
                             @else
                                 <span class="small fst-italic">Genere sconosciuto</span>
                             @endif
                         </div>
-                        <audio class="w-100" controls>
-                            <source src="{{ Storage::url($track->path) }}" type="audio/mpeg">
-                            Your browser does not support the audio tag.
-                        </audio>
-                    </div>
-                    <div class="card-footer text-body-secondary small">
-                        Inserito da: <a href="{{ route('track.filterByUser', ['user' => $track->user->id]) }}">{{ $track->user->name }}</a> - {{ $track->created_at->format('d/m/Y') }}
+                        <div class="card-header text-body-secondary small text-center">
+                            <a href="{{ route('track.edit', compact('track')) }}" class="btn btn-sm btn-primary me-5">Modifica</a>
+                            <form class="d-inline" method="POST" action="{{ route('track.destroy', compact('track')) }}" onclick="return confirm('Sicuro di voler cancellare questo brano?')">
+                                @csrf
+                                @method('delete')
+                                <button class="btn btn-sm btn-danger">Elimina</button>
+                            </form>
+                        </div>
                     </div>
                 </div>
-            </div>
             @endforeach
         </div>
     </div>
-
 </x-layout>
-
 
