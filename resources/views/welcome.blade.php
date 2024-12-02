@@ -5,19 +5,31 @@
                 <div class="col-12 col-md-3 mb-4">
                     <div class="card">
                         <div class="text-center">
-                            <img width="250" class="p-3 rounded-pill" 
-                                 src="{{ $track->cover ? Storage::url($track->cover) : Storage::url('covers/default.jpg') }}" 
-                                 alt="{{ $track->title ?? 'Titolo non disponibile' }}">
+                            <img 
+                                width="250" 
+                                class="p-3 rounded-pill" 
+                                src="{{ $track->cover ? Storage::url($track->cover) : Storage::url('covers/default.jpg') }}" 
+                                alt="{{ $track->title ?? 'Titolo non disponibile' }}"
+                            >
                         </div>
                         <div class="card-body">
-                            <h5 class="card-title">{{ $track->title ?? 'Titolo non disponibile' }}</h5>
-                            <p class="card-text small">{{ $track->description ?? 'Nessuna descrizione disponibile' }}</p>
+                            <h5 class="card-title">
+                                {{ $track->title ?? 'Titolo non disponibile' }}
+                            </h5>
+                            <p class="card-text small">
+                                {{ $track->description ?? 'Nessuna descrizione disponibile' }}
+                            </p>
 
                             <div class="mb-3">
                                 <p class="fw-bold m-0">Generi:</p>
                                 @if($track->genres->count())
                                     @foreach($track->genres as $genre)
-                                        <span class="me-1 small fst-italic">{{ $genre->name }}</span>
+                                        <a 
+                                            href="{{ route('track.filterByGenre', ['genre' => $genre->id]) }}" 
+                                            class="me-1 small fst-italic"
+                                        >
+                                            {{ $genre->name }}
+                                        </a>
                                     @endforeach
                                 @else
                                     <span class="small fst-italic">Genere sconosciuto</span>
@@ -26,14 +38,19 @@
 
                             <div>
                                 <audio class="w-100" controls>
-                                    <source src="{{ $track->path ? Storage::url($track->path) : '#' }}" type="audio/mpeg">
+                                    <source 
+                                        src="{{ $track->path ? Storage::url($track->path) : '#' }}" 
+                                        type="audio/mpeg"
+                                    >
                                     Your browser does not support the audio tag.
                                 </audio>
                             </div>
                         </div>
                         <div class="card-footer text-body-secondary small">
                             Inserito da: 
-                            <a href="{{ route('track.filterByUser', ['user' => $track->user->id ?? '#']) }}">
+                            <a 
+                                href="{{ route('track.filterByUser', ['user' => $track->user->id ?? '#']) }}"
+                            >
                                 {{ $track->user->name ?? 'Utente sconosciuto' }}
                             </a>
                             <br>
