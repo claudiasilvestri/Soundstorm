@@ -1,5 +1,5 @@
-<x-layout>
-    <div class="container-fluid p-5 bg-secondary-subtle text-center">
+<x-layout> 
+    <div class="container-fluid p-5<x-layout> bg-secondary-subtle text-center">
         <div class="row justify-content-center">
             <div class="col-12">
                 <h1 class="display-1 text-uppercase">
@@ -8,7 +8,7 @@
             </div>
         </div>
     </div>
-
+    
     <div class="container my-5">
         <div class="row justify-content-center">
             @foreach($tracks as $track)
@@ -37,8 +37,13 @@
                                 Your browser does not support the audio tag.
                             </audio>
                         </div>
-                        <div class="card-footer text-body-secondary small">
-                            Inserito da: <a href="{{ route('track.filterByUser', ['user' => $track->user->id]) }}">{{ $track->user->name }}</a> - {{ $track->created_at->format('d/m/Y') }}
+                        <div class="card-footer text-body-secondary small d-flex justify-content-between">
+                            <div>
+                                Inserito da: <a href="{{ route('track.filterByUser', ['user' => $track->user]) }}">{{ $track->user->name }}</a> - {{ $track->created_at->format('d/m/Y') }}
+                            </div>
+                            <div>
+                                <a href="{{ route('track.download', compact('track')) }}">Download</a>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -46,3 +51,4 @@
         </div>
     </div>
 </x-layout>
+

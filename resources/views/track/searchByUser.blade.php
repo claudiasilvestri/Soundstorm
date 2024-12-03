@@ -38,8 +38,13 @@
                                 Your browser does not support the audio tag.
                             </audio>
                         </div>
-                        <div class="card-footer text-body-secondary small">
-                            Inserito da: <a href="{{ route('track.filterByUser', ['user' => $track->user->id]) }}">{{ $track->user->name }}</a> - {{ $track->created_at->format('d/m/Y') }}
+                        <div class="card-footer text-body-secondary small d-flex justify-content-between">
+                            <div>
+                                Inserito da: <a href="{{ route('track.filterByUser', ['user' => $track->user]) }}">{{ $track->user->name }}</a> - {{ $track->created_at->format('d/m/Y') }}
+                            </div>
+                            <div>
+                                <a href="{{ route('track.download', compact('track')) }}">Download</a>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -47,4 +52,5 @@
         </div>
     </div>
 </x-layout>
+
 

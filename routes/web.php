@@ -37,6 +37,8 @@ Route::prefix('admin/dashboard')->middleware('auth')->group(function () {
     Route::post('/genres', [AdminController::class, 'store'])->name('admin.dashboard.genres.store');
     Route::put('/genres/{genre}', [AdminController::class, 'update'])->name('admin.genres.update');
     Route::delete('/genres/{genre}', [AdminController::class, 'destroy'])->name('admin.dashboard.genres.destroy');
+    Route::get('/musica/download/{track}/brano', [TrackController::class, 'download'])->name('track.download');
 });
+    
 
 

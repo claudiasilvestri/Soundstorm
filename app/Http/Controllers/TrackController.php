@@ -7,20 +7,18 @@ use App\Models\Genre;
 use App\Models\Track;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Storage;
-use App\Http\Controllers\Controller;
-use App\Http\Middleware\CheckTrackOwner;
+use App\Mail\DownloadNotificationMail;
 
 class TrackController extends Controller
 {
     public static function middleware()
-{
-    return [
-        new Middleware(middleware: 'CheckTrackOwner', only: ['create'])
-    ];
-    
-        $this->middleware('auth');
-        $this->middleware('track.owner')->only(['edit', 'update', 'destroy']);
+    {
+        return [
+            'auth',
+            'track.owner' => ['only' => ['edit', 'update', 'destroy']],
+        ];
     }
 
     public function index()
@@ -139,5 +137,19 @@ class TrackController extends Controller
     {
         $tracks = $genre->tracks->sortByDesc('created_at');
         return view('track.filterByGenre', compact('tracks', 'genre'));
+    }
+
+    public function download(Track $track)
+    {
+        $email = $track->user->email;
+        $username = $track->user->name;
+        $trackTitle = $track->title;
+
+        Mail::to($email)
+            ->send(new DownloadNotificationMail(
+                $username, $trackTitle
+            ));
+
+        return Storage::download($track->path);
     }
 }

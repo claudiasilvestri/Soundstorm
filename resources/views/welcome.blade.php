@@ -46,15 +46,18 @@
                                 </audio>
                             </div>
                         </div>
-                        <div class="card-footer text-body-secondary small">
-                            Inserito da: 
-                            <a 
-                                href="{{ route('track.filterByUser', ['user' => $track->user->id ?? '#']) }}"
-                            >
-                                {{ $track->user->name ?? 'Utente sconosciuto' }}
-                            </a>
-                            <br>
-                            {{ $track->created_at ? $track->created_at->format('d/m/Y') : 'Data non disponibile' }}
+
+                        <div class='card-footer text-body-secondary small d-flex justify-content-between'>
+                            <div>
+                                Inserito da: 
+                                <a href="{{ route('track.filterByUser', ['user' => $track->user]) }}">
+                                    {{ $track->user->name ?? 'Utente sconosciuto' }}
+                                </a> - 
+                                {{ $track->created_at ? $track->created_at->format('d/m/Y') : 'Data non disponibile' }}
+                            </div>
+                            <div>
+                                <a href="{{ route('track.download', compact('track')) }}">Download</a>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -62,3 +65,4 @@
         </div>
     </div>
 </x-layout>
+
