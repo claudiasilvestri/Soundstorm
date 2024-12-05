@@ -58,7 +58,7 @@ class TrackController extends Controller
 
         $track->genres()->attach($request->input('genres'));
 
-        return redirect()->route('homepage')->with('success', 'Hai aggiunto correttamente il tuo brano.');
+        return redirect()->route('welcome')->with('success', 'Hai aggiunto correttamente il tuo brano.');
     }
 
     public function show(Track $track)
@@ -151,6 +151,8 @@ class TrackController extends Controller
                 $username, $trackTitle
             ));
 
-        return Storage::download($track->path);
+        $path = storage_path('app/public/' . $track->path);
+        return response()->download($path);
+            
     }
 }
