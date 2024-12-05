@@ -6,6 +6,7 @@ use App\Models\User;
 use App\Models\Genre;
 use App\Models\Track;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class AdminController extends Controller
 {
@@ -19,14 +20,12 @@ class AdminController extends Controller
 
     public function dashboard()
     {
-        $currentUser = auth()->user();
-
-        if (!$currentUser || !$currentUser->isAdmin()) {
+        if (!Auth::user()->isAdmin()) {
             abort(403, 'Non autorizzato');
         }
-
-        $usersCount = User::count();
-
+        
+        $usersCount = User::all()->count();
+    
         return view('admin.dashboard', compact('usersCount'));
     }
 

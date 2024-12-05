@@ -14,14 +14,14 @@ class AdminMiddleware
         $user = Auth::user();
 
         Log::info('Verifica permessi utente', [
-            'user_id' => $user?->id,
-            'is_admin' => $user?->isAdmin() ?? false,
+            'user_id' => $user->id,
+            'is_admin' => $user->isAdmin() ?? false,
         ]);
 
         if (!$user || !$user->isAdmin()) {
             Log::warning('Accesso negato per utente', [
-                'user_id' => $user?->id,
-                'email' => $user?->email,
+                'user_id' => $user->id,
+                'email' => $user->email,
             ]);
 
             return redirect()->route('home')->with([

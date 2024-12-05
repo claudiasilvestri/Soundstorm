@@ -1,14 +1,30 @@
 @import "bootstrap";
 
 .bg-orange {
-    background-color:rgba(144, 238, 144, 0.5) !important;
+    background-color: rgba(144, 238, 144, 0.5) !important;
 }
 
-.navbar, .navbar-brand, .nav-link, .dropdown-item, .btn {
+.navbar, .nav-link {
+    font-family: 'Arial';
+    font-size: 1,25rem;
+}
+
+.navbar-brand {
     font-family: 'Arial';
     font-size: 1rem;
-   
+    font-weight: normal;
 }
+
+.nav-link {
+    font-weight: bold;
+}
+
+.dropdown-item, .btn {
+    font-family: 'Arial';
+    font-size: 1rem;
+    font-weight: normal;
+}
+
 
 .custom-font-size {
     font-size: 1.5rem;

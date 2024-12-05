@@ -5,6 +5,9 @@ namespace App\Mail;
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Mail\Mailables\Content;
+use Illuminate\Mail\Mailables\Address;
+use Illuminate\Mail\Mailables\Envelope;
 
 class DownloadNotificationMail extends Mailable
 {
@@ -40,12 +43,6 @@ class DownloadNotificationMail extends Mailable
     }
 }
 
-namespace App\Mail;
-
-use Illuminate\Bus\Queueable;
-use Illuminate\Mail\Mailable;
-use Illuminate\Queue\SerializesModels;
-
 class DownloadNotification extends Mailable
 {
     use Queueable, SerializesModels;
@@ -59,14 +56,27 @@ class DownloadNotification extends Mailable
         $this->fileName = $fileName;
     }
 
-    public function build()
+    public function envelope(): Envelope
     {
-        return $this->subject('Your File Download')
-                    ->view('emails.download-notification')
-                    ->with([
-                        'userName' => $this->user->name,
-                        'fileName' => $this->fileName,
-                    ]);
+        return new Envelope(
+            from: new Address('no-reply@soundstorm.it'),
+            subject: 'Your File Download'
+        );
+    }
+
+    public function content(): Content
+    {
+        return new Content(
+            view: 'emails.download-notification',
+            with: [
+                'userName' => $this->user->name,
+                'fileName' => $this->fileName,
+            ]
+        );
+    }
+
+    public function attachments(): array
+    {
+        return [];
     }
 }
-
