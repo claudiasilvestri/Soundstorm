@@ -3,12 +3,8 @@
 namespace App\Mail;
 
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
-use Illuminate\Mail\Mailables\Content;
-use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
-use Illuminate\Mail\Mailables\Address;
 
 class DownloadNotificationMail extends Mailable
 {
@@ -20,31 +16,57 @@ class DownloadNotificationMail extends Mailable
     public function __construct($username, $trackTitle)
     {
         $this->username = $username;
-        $this->trackTitle = $trackTitle; 
+        $this->trackTitle = $trackTitle;
     }
 
     public function envelope(): Envelope
     {
         return new Envelope(
             from: new Address('no-reply@soundstorm.it'),
-            subject: 'Il tuo brano è piaciuto!',
+            subject: 'Il tuo brano è piaciuto!'
         );
     }
 
     public function content(): Content
     {
         return new Content(
-            view: 'mail.downloadNotificationMail',
+            view: 'mail.downloadNotificationMail'
         );
     }
 
-    /**
-     * Get the attachments for the message.
-     *
-     * @return array<int, \Illuminate\Mail\Mailables\Attachment>
-     */
     public function attachments(): array
     {
         return [];
     }
 }
+
+namespace App\Mail;
+
+use Illuminate\Bus\Queueable;
+use Illuminate\Mail\Mailable;
+use Illuminate\Queue\SerializesModels;
+
+class DownloadNotification extends Mailable
+{
+    use Queueable, SerializesModels;
+
+    public $user;
+    public $fileName;
+
+    public function __construct($user, $fileName)
+    {
+        $this->user = $user;
+        $this->fileName = $fileName;
+    }
+
+    public function build()
+    {
+        return $this->subject('Your File Download')
+                    ->view('emails.download-notification')
+                    ->with([
+                        'userName' => $this->user->name,
+                        'fileName' => $this->fileName,
+                    ]);
+    }
+}
+

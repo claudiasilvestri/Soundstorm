@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
-class User extends Authenticatable
+class user extends Authenticatable
 {
     use HasFactory, Notifiable;
 
@@ -17,6 +17,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'is_admin',  
     ];
 
     protected $hidden = [
@@ -29,6 +30,8 @@ class User extends Authenticatable
         'password' => 'hashed',
     ];
 
+    protected $appends = ['rank'];
+
     public function profile(): HasOne
     {
         return $this->hasOne(Profile::class);
@@ -39,14 +42,27 @@ class User extends Authenticatable
         return $this->hasMany(Track::class);
     }
 
-    public function isAdmin(): bool
+    public function isAdmin()
+{
+    return $this->is_admin === 1; 
+}
+
+    public function getRankAttribute()
     {
-        return $this->profile?->is_admin ?? false;
+        return $this->rank ?? 0;
     }
 
     protected static function booted()
     {
         static::deleted(function ($user) {
+            self::updateRanks();
+        });
+
+        static::created(function ($user) {
+            self::updateRanks();
+        });
+
+        static::updated(function ($user) {
             self::updateRanks();
         });
     }

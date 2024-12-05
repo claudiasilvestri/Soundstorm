@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Storage;
 use App\Mail\DownloadNotificationMail;
+use App\Services\EmailService;
 
 class TrackController extends Controller
 {

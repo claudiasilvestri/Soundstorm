@@ -26,10 +26,10 @@
                                 <p class="fw-bold m-0">Generi:</p>
                                 @if($track->genres->count())
                                     @foreach($track->genres as $genre)
-                                        <a href="{{ route('track.filterByGenre', compact('genre')) }}" class="me-1 small fst-italic">#{{ $genre->name }}</a>
+                                        <a href="{{ route('track.filterByGenre', compact('genre')) }}" class="me-1 small fst-italic"># {{ $genre->name }}</a>
                                     @endforeach
                                 @else
-                                    <span class="small fst-italic">Genere sconosciuto</span>
+                                    <span class="small ">Genere sconosciuto</span>
                                 @endif
                             </div>
                             <audio class="w-100" controls>

@@ -6,18 +6,15 @@
 
         <title>Laravel</title>
 
-        <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.bunny.net">
         <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
 
-        
-      
-            @vite(['resources/css/app.css', 'resources/js/app.js'])
-       
+        <link rel="stylesheet" href="{{ asset('css/custom.css') }}">
+
+        @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
     <body>
        <x-navbar></x-navbar>
-    {{$slot}}   
-
+       {{$slot}}   
     </body>
-    </html>
+</html>

@@ -1,10 +1,12 @@
 <?php
-
+use App\Http\Controllers\YourController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\TrackController;
 use App\Http\Controllers\PublicController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\DashboardController;
+use App\Http\Middleware\AdminMiddleware;
 
 Route::prefix('profilo')->group(function () {
     Route::get('/', [ProfileController::class, 'page'])->name('profile.page');

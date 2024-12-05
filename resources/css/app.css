@@ -1,4 +1,77 @@
 @import "bootstrap";
 
+.bg-orange {
+    background-color:rgba(144, 238, 144, 0.5) !important;
+}
+
+.navbar, .navbar-brand, .nav-link, .dropdown-item, .btn {
+    font-family: 'Arial';
+    font-size: 1rem;
+   
+}
+
+.custom-font-size {
+    font-size: 1.5rem;
+}
+
+.margin-top-custom {
+    margin-top: 50px;
+}
+
+body {
+    margin-top: 0;
+}
+
+.card-footer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    white-space: normal;
+    text-align: center;
+}
+
+.card-footer .special-word {
+    font-size: 1rem;
+    font-weight: bold;
+    word-wrap: break-word;
+    text-align: center;
+}
+
+.card-footer .text-center {
+    text-align: center;
+    width: 100%;
+}
+
+.card, .card-body, .card-title, .card-text, .card-footer {
+    font-family: 'Verdana', 
+  
+}
+
+.card-title {
+    font-size: 1.5rem; 
+}
+
+.card-text {
+    font-size: 1rem;  
+    font-style: italic;
+}
+
+.card-footer {
+    font-size: 1rem; 
+}
+
+.small {
+    font-size: 1rem !important; 
+}
+
+
+
+
+
+
+
+
+
 
 

@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
-use App\Models\Track;
 use App\Models\Genre;
+use App\Models\Track;
 use Illuminate\Http\Request;
 
 class AdminController extends Controller
@@ -12,56 +12,46 @@ class AdminController extends Controller
     public static function middleware(): array
     {
         return [
-            new Middleware('auth'),
+            'auth',
+            'admin',
         ];
     }
 
     public function dashboard()
     {
-        if (!auth()->user()->isAdmin()) {
+        $currentUser = auth()->user();
+
+        if (!$currentUser || !$currentUser->isAdmin()) {
             abort(403, 'Non autorizzato');
         }
 
-        return view('admin.dashboard');
+        $usersCount = User::count();
+
+        return view('admin.dashboard', compact('usersCount'));
     }
 
     public function users()
     {
-        if (!auth()->user()->isAdmin()) {
-            abort(403, 'Non autorizzato');
-        }
-
         $users = User::all();
-
         return view('admin.users', compact('users'));
     }
 
     public function track()
     {
-        if (!auth()->user()->isAdmin()) {
-            abort(403, 'Non autorizzato');
-        }
-
         $track = Track::all();
-
         return view('admin.track', compact('track'));
     }
 
     public function genres()
     {
-        if (!auth()->user()->isAdmin()) {
-            abort(403, 'Non autorizzato');
-        }
-
         $genres = Genre::all();
-
         return view('admin.genres', compact('genres'));
     }
 
     public function store(Request $request)
     {
         $request->validate([
-            'name' => 'required',
+            'name' => 'required|unique:genres,name',
         ]);
 
         Genre::create([
@@ -72,24 +62,21 @@ class AdminController extends Controller
     }
 
     public function update(Request $request, Genre $genre)
-{
-    $request->validate([
-        'name' => 'required',
-    ]);
+    {
+        $request->validate([
+            'name' => 'required|unique:genres,name,' . $genre->id,
+        ]);
 
-    $genre->update([
-        'name' => $request->name,
-    ]);
+        $genre->update([
+            'name' => $request->name,
+        ]);
 
-    return redirect()->route('profile.page',compact('genre'))->with('success', 'Hai aggiornato un genere');
-}
+        return redirect()->route('admin.genres')->with('success', 'Hai aggiornato un genere');
+    }
 
-public function destroy(Genre $genre)
-{
-    $genre->delete();
-
-    return redirect()->back()->with('success', 'Hai cancellato un genere');
-}
-
-
+    public function destroy(Genre $genre)
+    {
+        $genre->delete();
+        return redirect()->back()->with('success', 'Hai cancellato un genere');
+    }
 }
