@@ -18,7 +18,7 @@ class AdminMiddleware
             'is_admin' => $user?->isAdmin() ?? false,
         ]);
 
-        if (!$user || !$user->isAdmin()) {
+        if (!$user || !$user->pro->isAdmin()) {
             Log::warning('Accesso negato per utente', [
                 'user_id' => $user?->id,
                 'email' => $user?->email,

@@ -13,7 +13,6 @@ class AdminController extends Controller
     {
         return [
             'auth',
-            'admin',
         ];
     }
 
@@ -21,7 +20,7 @@ class AdminController extends Controller
     {
         $currentUser = auth()->user();
 
-        if (!$currentUser || !$currentUser->isAdmin()) {
+        if (!$currentUser || !$currentUser->profile->is_admin) {
             abort(403, 'Non autorizzato');
         }
 
