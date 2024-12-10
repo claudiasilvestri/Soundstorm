@@ -1,8 +1,8 @@
 <x-layout>
     <div class="container-fluid p-5 bg-secondary-subtle text-center">
         <div class="row justify-content-center">
-            <div class="col-12">
-                <h1 class="display-1 text-uppercase">Profilo</h1>
+            <div class="mt-4">
+                <h1 class="text-uppercase fs-1 fw-bold my-2">Profilo</h1>
             </div>
         </div>
     </div>
@@ -22,7 +22,7 @@
                             <input type="file" class="form-control" name="avatar" id="avatar">
                         </div>
                         <div class="col-2">
-                            <button type="submit" class="btn btn-sm btn-primary">Cambia</button>
+                            <button type="submit" class="btn btn-sm btn-danger">Cambia</button>
                         </div>
                     </div>
                     @error('avatar')
@@ -109,8 +109,8 @@
     </div>
 
     <div class="container">
-        <a class="btn btn-outline-primary" href="{{ route('track.create') }}">Crea Track</a>
-    </div>
+        <a class="btn btn-primary" href="{{ route('track.create') }}">Inserisci Brano</a>
+    </div>    
 
     @if(session('success'))
         <div class="container mt-3">

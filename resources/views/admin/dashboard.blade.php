@@ -11,7 +11,7 @@
 
     <x-dashboard-nav />
 
-    <form action="{{ route('admin.dashboard.genres.store') }}" method="post">
+    <form action="{{ route('admin.dashboard.genres.store') }}" method="post" class="mt-4">
         @csrf
         <div class="mb-3">
             <label for="create-name" class="form-label">Crea un nuovo genere musicale</label>
@@ -39,4 +39,38 @@
             </div>
         </div>
     @enderror
-</x-layout>
+
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-12 col-md-3">
+                <div class="card">
+                    <div class="card-body">
+                        <p class="card-title fs-5">Totale brani</p>
+                        <p class="card-text fs-1">{{ $tracksCount }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-12 col-md-3">
+        <div class="card">
+            <div class="card-body">
+                <p class="card-title fs-5">Totale dimensione brani</p>
+                <p class="card-text fs-1">{{ $tracksSize }} MB</p>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-12 col-md-3">
+        <div class="card">
+            <div class="card-body">
+                <p class="card-title fs-5">Brani inseriti settimana precedente</p>
+                <p class="card-text fs-1">{{ $lastWeekTracks }}</p>
+            </div>
+        </div>
+    </div>
+    </x-layout>
+
+
+

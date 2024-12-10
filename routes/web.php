@@ -23,6 +23,10 @@ Route::get('/musica/tutti-i-brani/{genre}/genere', [TrackController::class, 'fil
 Route::get('/musica/aggiorna/{track}/brano', [TrackController::class, 'edit'])->name('track.edit');
 Route::put('/musica/aggiorna/{track}/brano', [TrackController::class, 'update'])->name('track.update');
 
+Route::middleware(['auth', 'role:user'])->group(function () {
+    Route::get('/dashboard', [AdminController::class, 'index'])->middleware('auth');
+});
+
 Route::middleware(['auth'])->group(function () {
     Route::delete('/musica/elimina/{track}/brano', [TrackController::class, 'destroy'])
         ->middleware('track.owner')

@@ -10,10 +10,10 @@
     <div class="container my-5">
         <div class="row justify-content-center">
             <div class="col-12 col-md-6">
-                <!-- Form per aggiornare il profilo -->
+                
                 <form class="rounded p-5 border" action="{{ route('profile.update', $user) }}" method="POST">
                     @csrf
-                    @method('PUT') <!-- Metodo HTTP PUT -->
+                    @method('PUT') 
 
                     <div class="mb-3">
                         <label for="name" class="form-label">Nome</label>
