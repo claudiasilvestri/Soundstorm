@@ -7,6 +7,7 @@ use App\Http\Controllers\PublicController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Middleware\AdminMiddleware;
+use App\Http\Middleware\CheckTrackOwner;
 
 Route::prefix('profilo')->group(function () {
     Route::get('/', [ProfileController::class, 'page'])->name('profile.page');
@@ -29,7 +30,7 @@ Route::middleware(['auth', 'role:user'])->group(function () {
 
 Route::middleware(['auth'])->group(function () {
     Route::delete('/musica/elimina/{track}/brano', [TrackController::class, 'destroy'])
-        ->middleware('track.owner')
+        ->middleware(CheckTrackOwner::class)
         ->name('track.destroy');
 });
 
