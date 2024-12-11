@@ -9,7 +9,7 @@
       </div>
     </div>
   
-    <x-dashboard-nav />
+    <x-dashboard-nav :usersCount="$usersCount" />
   
     <div class="container my-5">
       <div class="row justify-content-center">
@@ -25,7 +25,7 @@
               </tr>
             </thead>
             <tbody>
-              @foreach($track as $track)
+              @foreach($tracks as $track)
                 <tr>
                   <th scope="row">{{ $track->id }}</th>
                   <td>

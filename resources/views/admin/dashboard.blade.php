@@ -9,7 +9,7 @@
         </div>
     </div>
 
-    <x-dashboard-nav />
+    <x-dashboard-nav :usersCount="$usersCount" />
 
     <form action="{{ route('admin.dashboard.genres.store') }}" method="post" class="mt-4">
         @csrf
