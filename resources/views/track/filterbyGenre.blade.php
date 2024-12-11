@@ -42,7 +42,7 @@
                                 Inserito da: <a href="{{ route('track.filterByUser', ['user' => $track->user]) }}">{{ $track->user->name }}</a> - {{ $track->created_at->format('d/m/Y') }}
                             </div>
                             <div>
-                                <a href="{{ route('track.download', compact('track')) }}">Download</a>
+                                <a href="{{ route('track.download', compact('track')) }}"><strong>Download</strong></a>
                             </div>
                         </div>
                     </div>

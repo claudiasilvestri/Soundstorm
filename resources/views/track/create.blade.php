@@ -60,8 +60,8 @@
                         @enderror
                     </div>
 
-                    <button type="submit" class="btn btn-primary">Crea</button>
-                    <a href="{{ route('welcome') }}" class="btn btn-outline-primary">Torna alla home</a>
+                    <button type="submit" class="btn btn-danger">Crea</button>
+                    <a href="{{ route('welcome') }}" class="btn btn-primary">Torna alla home</a>
                 </form>
             </div>
         </div>

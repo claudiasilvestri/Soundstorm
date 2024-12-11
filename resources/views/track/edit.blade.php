@@ -69,7 +69,7 @@
 
                         <div class="mt-5">
                             <button type="submit" class="btn btn-danger">Modifica brano</button>
-                            <a href="{{ route('welcome') }}" class="btn btn-outline-primary">Torna alla home</a>
+                            <a href="{{ route('welcome') }}" class="btn btn-primary">Torna alla home</a>
                         </div>
                     </form>
                 </div>
