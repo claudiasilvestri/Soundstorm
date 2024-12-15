@@ -40,12 +40,9 @@ Route::prefix('admin/dashboard')->middleware('auth')->group(function () {
     Route::get('/', [AdminController::class, 'dashboard'])->name('admin.dashboard');
     Route::get('/users', [AdminController::class, 'users'])->name('admin.dashboard.users');
     Route::get('/tracks', [AdminController::class, 'track'])->name('admin.dashboard.tracks');
-    Route::get('/genres', [AdminController::class, 'genres'])->name('admin.dashboard.genres');
+    Route::get('/genres', [AdminController::class, 'genres'])->name('admin.dashboard.genres'); 
     Route::post('/genres', [AdminController::class, 'store'])->name('admin.dashboard.genres.store');
-    Route::put('/genres/{genre}', [AdminController::class, 'update'])->name('admin.genres.update');
+    Route::put('/genres/{genre}', [AdminController::class, 'update'])->name('admin.dashboard.genres.update');
     Route::delete('/genres/{genre}', [AdminController::class, 'destroy'])->name('admin.dashboard.genres.destroy');
     Route::get('/musica/download/{track}/brano', [TrackController::class, 'download'])->name('track.download');
 });
-    
-
-

@@ -1,37 +1,51 @@
 @import "bootstrap";
 
-.bg-orange {
+.bg-success {
     background-color: rgba(144, 238, 144, 0.5) !important;
 }
 
 .navbar, .nav-link {
     font-family: 'Arial';
-    font-size: 1,25rem;
+    font-size: 1.25rem;
 }
 
 .navbar-brand {
     font-family: 'Arial';
-    font-size: 1rem;
+    font-size: 2rem;
     font-weight: normal;
+    text-align: left;
 }
 
 .nav-link {
     font-weight: bold;
 }
 
-.dropdown-item, .btn {
+.dropdown-item {
     font-family: 'Arial';
-    font-size: 1rem;
-    font-weight: normal;
+    font-size: 1.00rem;
+    font-weight: bold;
+    background-color: rgba(144, 238, 144, 0.5);
+    color: rgba(0, 0, 0, 1);
 }
 
+.dropdown-item:hover {
+    color: rgba(0, 0, 0, 1);
+}
+
+.dropdown-menu {
+    background-color: rgba(144, 238, 144, 0.5);
+    border: none;
+    padding: 0;
+    margin: 0;
+    box-shadow: none;
+}
 
 .custom-font-size {
     font-size: 1.5rem;
 }
 
 .margin-top-custom {
-    margin-top: 50px;
+    margin-top: 20px;
 }
 
 body {
@@ -47,7 +61,6 @@ body {
     text-align: center;
 }
 
-
 .card-footer .special-word {
     font-size: 1rem;
     font-weight: bold;
@@ -61,34 +74,78 @@ body {
 }
 
 .card, .card-body, .card-title, .card-text, .card-footer {
-    font-family: 'Verdana', 
-  
+    font-family: 'Arial';
 }
 
 .card-title {
-    font-size: 1.5rem; 
+    font-size: 1.5rem;
 }
 
 .card-text {
-    font-size: 1rem;  
+    font-size: 1rem;
     font-style: italic;
 }
 
 .card-footer {
-    font-size: 1rem; 
+    font-size: 1rem;
 }
 
 .small {
-    font-size: 1rem !important; 
+    font-size: 1rem !important;
 }
 
+.content {
+    margin-top: 20px;
+    padding-top: 20px;
+    margin-bottom: 200px;
+}
 
+footer {
+    background-color: #343a40;
+    color: white;
+    font-family: 'Arial', sans-serif;
+    font-size: 0.875rem;
+    padding-top: 0.25rem;
+    padding-bottom: 0.25rem;
+}
 
+footer h5 {
+    font-size: 1.4rem;
+    font-weight: bold;
+    color: #90ee90;
+}
 
+footer a {
+    font-family: 'Arial', sans-serif;
+    font-size: 1.25rem;
+    font-weight: normal;
+    text-decoration: none;
+    color: #ffffff;
+}
 
+footer a:hover {
+    text-decoration: none;
+    color: #ffffff;
+}
 
+footer p {
+    font-size: 1.25rem;
+    color: #ffffff;
+}
 
+footer .text-center {
+    font-size: 0.875rem;
+}
 
+.card {
+    margin-top: 25px;
+}
+
+.navbar-nav {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
 
 
 

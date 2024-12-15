@@ -12,9 +12,8 @@
 
         <form class="rounded p-5 border" action="{{ route('register') }}" method="POST">
             @csrf
-            <h1 class="h3 mb-3 fw-normal">Registrati</h1>
+            <h1 class="h3 mb-3 fw-normal"><strong>Registrati</strong></h1>
 
-            {{-- Nome --}}
             <div class="mb-3">
                 <label for="name" class="form-label">Nome</label>
                 <input type="text" name="name" class="form-control" id="name" placeholder="Inserisci il tuo nome">
@@ -23,7 +22,6 @@
                 @enderror
             </div>
 
-            {{-- Email --}}
             <div class="mb-3">
                 <label for="email" class="form-label">Indirizzo Email</label>
                 <input type="email" name="email" class="form-control" id="email" placeholder="name@example.com">
@@ -32,7 +30,6 @@
                 @enderror
             </div>
 
-            {{-- Password --}}
             <div class="mb-3">
                 <label for="password" class="form-label">Password</label>
                 <input type="password" name="password" class="form-control" id="password" placeholder="Inserisci una password">
@@ -41,7 +38,6 @@
                 @enderror
             </div>
 
-            {{-- Conferma Password --}}
             <div class="mb-3">
                 <label for="password_confirmation" class="form-label">Conferma Password</label>
                 <input type="password" name="password_confirmation" class="form-control" id="password_confirmation" placeholder="Conferma la tua password">
@@ -49,7 +45,6 @@
 
             <hr>
 
-            {{-- Numero di cellulare --}}
             <div class="mb-3">
                 <label for="mobile_number" class="form-label">Numero di cellulare</label>
                 <input type="text" name="mobile_number" class="form-control" id="mobile_number" placeholder="Inserisci il tuo numero di cellulare">
@@ -58,7 +53,6 @@
                 @enderror
             </div>
 
-            {{-- Indirizzo, CAP --}}
             <div class="mb-3 d-flex justify-content-between">
                 <div class="col-7">
                     <label for="address" class="form-label">Residenza</label>
@@ -76,7 +70,6 @@
                 </div>
             </div>
 
-            {{-- Città, Provincia --}}
             <div class="mb-3 d-flex justify-content-between">
                 <div class="col-7">
                     <label for="city" class="form-label">Città</label>
@@ -94,7 +87,6 @@
                 </div>
             </div>
 
-            {{-- Regione, Paese --}}
             <div class="mb-3 d-flex justify-content-between">
                 <div class="col-5">
                     <label for="region" class="form-label">Regione</label>
@@ -112,7 +104,7 @@
                 </div>
             </div>
 
-            <button type="submit" class="btn btn-primary">Registrati</button>
+            <button type="submit" class="btn btn-danger">Registrati</button>
 
             <div class="mt-2">
                 <span>Sei già registrato?</span>

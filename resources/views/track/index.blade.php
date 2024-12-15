@@ -1,13 +1,13 @@
 <x-layout> 
-    <div class="container-fluid p-5 text-center">
+    <div class="container-fluid p-5 text-center mt-0"> 
         <div class="row justify-content-center">
-            <div class="col-12">
-                <h1 class="text-uppercase fs-1 fw-bold my-2">Tutti i brani</h1>  
-            </div>
+            <div class="col-12"></div>
         </div>
     </div>
+    
+    <h1 class="text-uppercase fs-1 fw-bold my-4 text-center" style="font-family: Arial, sans-serif;">TUTTI I BRANI</h1>
 
-    <div class="container my-5">
+    <div class="container my-2"> 
         <div class="row justify-content-center">
             @foreach($tracks as $track)
                 <div class="col-12 col-md-3 mb-4">
@@ -49,6 +49,3 @@
         </div>
     </div>
 </x-layout>
-
-
-

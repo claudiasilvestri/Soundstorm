@@ -20,7 +20,6 @@ class AdminController extends Controller
     }
 
     public function dashboard()
-    
     {
         if (!Auth::user()->profile->is_admin) {
             abort(403, 'Non autorizzato');
@@ -28,7 +27,6 @@ class AdminController extends Controller
 
         $tracks = Track::all();
         $usersCount = User::count();
-
         $tracksCount = $tracks->count();
 
         $tracksSize = 0;
@@ -83,21 +81,21 @@ class AdminController extends Controller
     }
 
     public function update(Request $request, Genre $genre)
-    {
-        $request->validate([
-            'name' => 'required|unique:genres,name,' . $genre->id,
-        ]);
+{
+    $request->validate([
+        'name' => 'required|unique:genres,name,' . $genre->id,
+    ]);
 
-        $genre->update([
-            'name' => $request->name,
-        ]);
+    $genre->update([
+        'name' => $request->name,
+    ]);
 
-        return redirect()->route('admin.genres')->with('success', 'Hai aggiornato un genere');
-    }
-
+    return redirect()->route('admin.dashboard.genres')->with('success', 'Genere aggiornato correttamente!');
+}
     public function destroy(Genre $genre)
     {
         $genre->delete();
         return redirect()->back()->with('success', 'Hai cancellato un genere');
     }
 }
+

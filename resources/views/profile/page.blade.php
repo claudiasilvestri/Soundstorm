@@ -1,7 +1,7 @@
 <x-layout>
-    <div class="container-fluid p-5 text-center">
+    <div class="container-fluid p-5 text-center mt-5">
         <div class="row justify-content-center">
-                <h1 class="text-uppercase fs-1 fw-bold my-2">Profilo</h1>
+            <h1 class="text-uppercase fs-1 fw-bold my-2" style="font-family: Arial, sans-serif;">Profilo</h1>
             </div>
         </div>
     </div>

@@ -1,10 +1,7 @@
 <x-layout>
-    <div class="container-fluid p-5 bg-secondary-subtle text-center">
+    <div class="text-center">
         <div class="row justify-content-center">
             <div class="col-12">
-                <h1 class="display-1 text-uppercase">
-                    Admin dashboard
-                </h1>
             </div>
         </div>
     </div>
@@ -17,7 +14,6 @@
                 <table class="table striped border">
                     <thead>
                         <tr class="table-dark">
-                            <th scope="col">#</th>
                             <th scope="col">Nome</th>
                             <th scope="col">Email</th>
                             <th scope="col">Iscritto dal</th>
@@ -27,11 +23,10 @@
                     <tbody>
                         @foreach($users as $user)
                         <tr>
-                            <th scope="row">{{ $user->rank }}</th>
-                            <td>{{ $user->name }}</td>
-                            <td>{{ $user->email }}</td>
-                            <td>{{ $user->created_at->format('d/m/Y') }}</td>
-                            <td>{{ $user->isAdmin() ? 'Admin' : 'Utente base' }}</td>
+                            <td>{{ $user->name }}</td> 
+                            <td>{{ $user->email }}</td> 
+                            <td>{{ $user->created_at->format('d/m/Y') }}</td> 
+                            <td>{{ $user->isAdmin() ? 'Admin' : 'Utente base' }}</td> 
                         </tr>
                         @endforeach
                     </tbody>

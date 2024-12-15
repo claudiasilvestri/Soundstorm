@@ -1,8 +1,8 @@
-<div class="card">
+<div class="card d-flex flex-column">
     <div class="text-center">
         <img width="300" class="p-3 rounded-pill" src="{{ Storage::url($track->cover) }}" alt="{{ $track->title }}">
     </div>
-    <div class="card-body">
+    <div class="card-body flex-grow-1">
         <h5 class="card-title">{{ $track->title }}</h5>
         <p class="card-text small">{{ $track->description }}</p>
         <div class="mb-3">

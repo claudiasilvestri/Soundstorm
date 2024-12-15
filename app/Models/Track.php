@@ -28,4 +28,9 @@ class Track extends Model
     {
         return $this->belongsToMany(Genre::class);
     }
+
+    public function genre()
+{
+    return $this->belongsTo(Genre::class);
+}
 }
