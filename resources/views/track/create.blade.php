@@ -1,10 +1,8 @@
 <x-layout>
-    <div class="container-fluid p-5 bg-secondary-subtle text-center">
+    <div class= text-center">
         <div class="row justify-content-center">
             <div class="col-12">
-                <h1 class="display-1 text-uppercase">
-                    Inserisci il tuo brano
-                </h1>
+            <h1 class="text-uppercase fs-1 fw-bold my-4 text-center" style="font-family: Arial, sans-serif;">INSERISCI IL TUO BRANO</h1>
             </div>
         </div>
     </div>

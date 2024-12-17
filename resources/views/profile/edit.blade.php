@@ -1,8 +1,8 @@
 <x-layout>
-    <div class="container-fluid p-5 bg-secondary-subtle text-center">
+    <div class="text-center">
         <div class="row justify-content-center">
             <div class="col-12">
-                <h1 class="display-1 text-uppercase">Aggiorna profilo</h1>
+            <h1 class="text-uppercase fs-1 fw-bold my-2" style="font-family: Arial, sans-serif;">AGGIORNA PROFILO</h1>
             </div>
         </div>
     </div>
@@ -92,11 +92,14 @@
                             @enderror
                         </div>
                     </div>
+                    
+                    <div class="mt-4"></div>
 
-                    <button type="submit" class="btn btn-primary">Aggiorna profilo</button>
-                    <a href="{{ route('profile.page') }}" class="btn btn-outline-primary">Torna indietro</a>
+                    <button type="submit" class="btn btn-danger">Aggiorna profilo</button>
+                    <a href="{{ route('profile.page') }}" class="btn btn-outline-danger">Torna indietro</a>
                 </form>
             </div>
         </div>
     </div>
 </x-layout>
+
